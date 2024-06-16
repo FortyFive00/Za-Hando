@@ -18,13 +18,16 @@
         // robotArm.moveRight();
         // robotArm.moveLeft();
         // robotArm.drop();
+        
+        
+        // Your code instructions
         robotArm.grab()
         let scan = robotArm.scan()
         GrabbedItem = scan
         
         let ArmPosition = 0;
 
-        const moveArm = (6, 'right') => {
+        const moveArm = (amount, direction) => {
             for(let i = 0; i < amount; i++) {
                 if (direction === 'right') {
                     robotArm.moveRight();
@@ -35,7 +38,7 @@
         }
 
         function MoveItem(GrabbedItem) {
-            let moveAmount;
+            let moveAmount=0;
             if (GrabbedItem == 6) {
                 moveAmount = 6;
             } else if (GrabbedItem == 5) {
@@ -56,7 +59,7 @@
 
         function YeetingBack() {
             moveArm(ArmPosition, 'left');
-            ArmPosition = 0; // Reset current position to start
+            ArmPosition = 0; // Reset the current position
         }
 
         function RepeatMoves() {
@@ -65,50 +68,15 @@
             MoveItem(newscan);
             YeetingBack();
         }
-        function YeetingBack() {
-            // Inverting the moves
-            if (GrabbedItem == 6) {
-                robotArm.moveLeft();
-                robotArm.moveLeft();
-                robotArm.moveLeft();
-                robotArm.moveLeft();
-                robotArm.moveLeft();
-                robotArm.moveLeft();
-            } else if (GrabbedItem == 5) {
-                robotArm.moveLeft();
-                robotArm.moveLeft();
-                robotArm.moveLeft();
-                robotArm.moveLeft();
-                robotArm.moveLeft();
-            } else if (GrabbedItem == 4) {
-                robotArm.moveLeft();
-                robotArm.moveLeft();
-                robotArm.moveLeft();
-                robotArm.moveLeft();
-            } else if (GrabbedItem == 3) {
-                robotArm.moveLeft();
-                robotArm.moveLeft();
-                robotArm.moveLeft();
-            } else if (GrabbedItem == 2) {
-                robotArm.moveLeft();
-                robotArm.moveLeft();
-            } else {
-                robotArm.moveLeft();
-            }
-        }
-        function RepeatMoves() {
-            let newscan = robotArm.scan();
-            MoveItem();
-            YeetingBack();
-        }
 
 
-
-
-        MoveItem();
-        YeetingBack();
+        
         RepeatMoves();
-        // Your code instructions
+        RepeatMoves();
+        RepeatMoves();
+        RepeatMoves();
+        RepeatMoves();
+        RepeatMoves();
 
     
         // Your instructed commands will be executed
