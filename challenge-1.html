@@ -1,0 +1,119 @@
+<!DOCTYPE HTML>
+
+<body>
+    <canvas id="canvas" width="800" height="600"></canvas>
+    <script src="robot-arm.js"></script>
+    <script>
+
+        // Robotarm js loads in
+        var canvas = document.getElementById("canvas");
+        var robotArm = new RobotArm(canvas);
+
+        // Level Loads in
+        robotArm.speed = 600;
+        robotArm.examLevel(1);
+
+        // robotArm.grab();
+        // robotArm.scan();
+        // robotArm.moveRight();
+        // robotArm.moveLeft();
+        // robotArm.drop();
+        robotArm.grab()
+        let scan = robotArm.scan()
+        GrabbedItem = scan
+        
+        let ArmPosition = 0;
+
+        const moveArm = (6, 'right') => {
+            for(let i = 0; i < amount; i++) {
+                if (direction === 'right') {
+                    robotArm.moveRight();
+                } else if (direction === 'left') {
+                    robotArm.moveLeft();
+                }
+            }
+        }
+
+        function MoveItem(GrabbedItem) {
+            let moveAmount;
+            if (GrabbedItem == 6) {
+                moveAmount = 6;
+            } else if (GrabbedItem == 5) {
+                moveAmount = 5;
+            } else if (GrabbedItem == 4) {
+                moveAmount = 4;
+            } else if (GrabbedItem == 3) {
+                moveAmount = 3;
+            } else if (GrabbedItem == 2) {
+                moveAmount = 2;
+            } else {
+                moveAmount = 1;
+            }
+            moveArm(moveAmount, 'right');
+            robotArm.drop();
+            ArmPosition = moveAmount;
+        }
+
+        function YeetingBack() {
+            moveArm(ArmPosition, 'left');
+            ArmPosition = 0; // Reset current position to start
+        }
+
+        function RepeatMoves() {
+            robotArm.grab();
+            let newscan = robotArm.scan();
+            MoveItem(newscan);
+            YeetingBack();
+        }
+        function YeetingBack() {
+            // Inverting the moves
+            if (GrabbedItem == 6) {
+                robotArm.moveLeft();
+                robotArm.moveLeft();
+                robotArm.moveLeft();
+                robotArm.moveLeft();
+                robotArm.moveLeft();
+                robotArm.moveLeft();
+            } else if (GrabbedItem == 5) {
+                robotArm.moveLeft();
+                robotArm.moveLeft();
+                robotArm.moveLeft();
+                robotArm.moveLeft();
+                robotArm.moveLeft();
+            } else if (GrabbedItem == 4) {
+                robotArm.moveLeft();
+                robotArm.moveLeft();
+                robotArm.moveLeft();
+                robotArm.moveLeft();
+            } else if (GrabbedItem == 3) {
+                robotArm.moveLeft();
+                robotArm.moveLeft();
+                robotArm.moveLeft();
+            } else if (GrabbedItem == 2) {
+                robotArm.moveLeft();
+                robotArm.moveLeft();
+            } else {
+                robotArm.moveLeft();
+            }
+        }
+        function RepeatMoves() {
+            let newscan = robotArm.scan();
+            MoveItem();
+            YeetingBack();
+        }
+
+
+
+
+        MoveItem();
+        YeetingBack();
+        RepeatMoves();
+        // Your code instructions
+
+    
+        // Your instructed commands will be executed
+        robotArm.run();
+    </script>
+</body>
+
+</html>
