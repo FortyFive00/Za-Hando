@@ -1,0 +1,78 @@
+<!DOCTYPE HTML>
+
+<body>
+    <canvas id="canvas" width="800" height="600"></canvas>
+    <script src="robot-arm.js"></script>
+    <script>
+
+        // Robotarm js loads in
+        var canvas = document.getElementById("canvas");
+        var robotArm = new RobotArm(canvas);
+
+        // Level Loads in
+        robotArm.speed = 600;
+        robotArm.examLevel(2);
+
+        // robotArm.grab();
+        // robotArm.scan();
+        // robotArm.moveRight();
+        // robotArm.moveLeft();
+        // robotArm.drop();
+        
+        
+        // Your code instructions
+        robotArm.grab()
+        let scan = robotArm.scan()
+        color = scan
+        //red 2l,green 4r,yellow 3r, blue 3 l
+        
+        const moveArm = (amount, direction) => {
+            for (let i = 0; i < amount; i++) {
+                if (direction === 'right') {
+                    robotArm.moveRight();
+                } else if (direction === 'left') {
+                    robotArm.moveLeft();
+                }
+            }
+        }
+
+        // This took me ages to understand
+        function moveToCorrectPosition(color) {
+            if (color === 'red') {
+                moveArm(4, 'left');
+            } else if (color === 'blue') {
+                moveArm(3, 'left');
+            } else if (color === 'green') {
+                moveArm(4, 'right');
+            } else if (color === 'yellow') {
+                moveArm(3, 'right');
+            }
+            robotArm.drop();
+            
+            //this way it resets it's position and it can pick up the other blocks
+            if (color === 'red') {
+                moveArm(4, 'right');
+            } else if (color === 'blue') {
+                moveArm(3, 'right');
+            } else if (color === 'green') {
+                moveArm(4, 'left');
+            } else if (color === 'yellow') {
+                moveArm(3, 'left');
+            }
+        }
+
+        for (let i = 0; i < 6; i++) { //loop to make the whole thing repeat
+            robotArm.grab();
+            let color = robotArm.scan();
+            moveToCorrectPosition(color);
+        }
+
+
+
+        moveToCorrectPosition();
+        // Your instructed commands will be executed
+        robotArm.run();
+    </script>
+</body>
+
+</html>
