@@ -1,0 +1,80 @@
+<!DOCTYPE HTML>
+
+<body>
+    <canvas id="canvas" width="800" height="600"></canvas>
+    <script src="robot-arm.js"></script>
+    <script>
+
+        // Robotarm js loads in
+        var canvas = document.getElementById("canvas");
+        var robotArm = new RobotArm(canvas);
+
+        // Level Loads in
+        robotArm.speed = 600;
+        robotArm.examLevel(2);
+
+        // robotArm.grab();
+        // robotArm.scan();
+        // robotArm.moveRight();
+        // robotArm.moveLeft();
+        // robotArm.drop();
+        
+        
+        // Your code instructions
+        
+
+        const columnData = [
+        { color: "red", direction: "left", steps: 4 },
+        { color: "blue", direction: "left", steps: 3 },
+        { color: "yellow", direction: "right", steps: 3 },
+        { color: "green", direction: "right", steps: 4 },
+      ];
+
+      function moveItem() {
+            robotArm.grab(); 
+            let scan = robotArm.scan();
+            let color = scan;
+        
+      let direction, steps;
+      for (let i = 0; i < columnData.length; i++) {
+        if (columnData[i].color === color) {
+            direction = columnData[i].direction;
+            steps = columnData[i].steps;
+            break;
+        }
+        
+      }  
+        
+        if (direction === "left") {
+          for (let i = 0; i < steps; i++)
+          robotArm.moveLeft();
+        } else if  (direction === "right") {
+          for (let i = 0; i < steps; i++)
+          robotArm.moveRight();
+        }
+          
+        robotArm.drop();
+
+        //reset
+        if (direction === "left") {
+                for (let i = 0; i < steps; i++) {
+                    robotArm.moveRight();
+                }
+               } else if (direction === "right") {
+                for (let i = 0; i < steps; i++) {
+                    robotArm.moveLeft();
+                }
+            }  
+          }    
+            //repeat
+                for (let i = 0; i < 6; i++) { 
+                moveItem();
+        }
+      
+        moveItem();
+//instructed commands will be executed
+        robotArm.run();
+    </script>
+</body>
+
+</html>
