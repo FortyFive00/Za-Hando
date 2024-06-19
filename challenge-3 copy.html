@@ -1,0 +1,67 @@
+<!DOCTYPE HTML>
+
+<body>
+    <canvas id="canvas" width="800" height="600"></canvas>
+    <script src="robot-arm.js"></script>
+    <script>
+
+        // Robotarm js loads in
+        var canvas = document.getElementById("canvas");
+        var robotArm = new RobotArm(canvas);
+
+        // Level Loads in
+        robotArm.speed = 600;
+        robotArm.examLevel(3);
+
+        // robotArm.grab();
+        // robotArm.scan();
+        // robotArm.moveRight();
+        // robotArm.moveLeft();
+        // robotArm.drop();
+    
+        const columnData = [
+        { color: "purple", destination: "purple"  },
+        { color: "blue", destination: "blue"  },
+        { color: "yellow", destination: "yellow" },
+        { color: "green", destination: "green"  },
+        { color: "grey", destination: "grey"  },
+        { color: "black", destination: "black"},
+        { color: "red", destination: "red"  },
+      ];
+
+      function RepeatMoves() {
+            robotArm.moveLeft();
+            robotArm.scanColumn();
+            ColumnColor = robotArm.scanColumn();
+        if (ColumnColor == 'undefined' ) {
+            console.log("nada");
+        }
+        }
+        
+        const CompleteGame = 9;
+        for (let i = 0; i < CompleteGame; i++) {
+            RepeatMoves();;
+        }
+        robotArm.grab();
+        robotArm.scan()
+        let color = robotArm.scan();
+        
+
+        function moveRobotArmUntilMatch(color) {
+        
+        let currentColor = color;
+        if (currentColor === ColumnColor) {
+            robotArm.drop();
+        } else  {
+            robotArm.moveRight();
+        }
+        }
+    
+
+        moveRobotArmUntilMatch();
+//instructed commands will be executed
+        robotArm.run();
+    </script>
+</body>
+
+</html>
